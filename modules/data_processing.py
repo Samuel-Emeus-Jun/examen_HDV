@@ -1,5 +1,15 @@
 ##AQUI VAMOS A CARGAR EL ARCHIVO Y HACER LA LIMPIEZA GENERAL
-#Modificando
+#Se realizaron los siguientes cambios
+# Borrar comentarios
+# Normalizar nombres de columnas
+# Corregir valores que parecen fechas en "precio_unitario"
+# Limpiar y convertir la columna de precio_unitario
+# Rellenar valores nulos en 'precio_unitario' con la media por producto y país
+# Convertir otras columnas numéricas
+# Formatear la columna de fecha
+# Calcular total de compra
+# Retorna el DataFrame modificado
+
 import pandas as pd
 from datetime import datetime
 

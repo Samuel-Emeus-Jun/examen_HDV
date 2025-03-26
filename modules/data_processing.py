@@ -12,7 +12,7 @@
 
 import pandas as pd
 from datetime import datetime
-
+#mergeado?
 def limpiar_datos_ventas(df):
     df = df.drop(columns=['Comentarios'], errors='ignore')
     df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")

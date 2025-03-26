@@ -27,7 +27,7 @@ def Mostrar_Datos_Dif(df):
     print(f"Totales de compra: {len(df["Total_Compra"].unique())}")
     print(f"Métodos de pago: {len(df["Metodo_Pago"].unique())}")
     print(f"Estados de envío: {len(df["Estado_Envio"].unique())}")
-    #print(f"{df["Pais"].unique()}")
+    print(f"{df["Pais"].unique()}")
 
 #Crear anuevo dataframe con los nombres de clientes repetidos y su frecuencia
 def Datos_Nombres_Repetidos(df):
@@ -51,7 +51,7 @@ Paises=Contar_Paises(df_original)
 #Muestra 1039 como resultado, pero al restarle los 473 registros del dataframe "Nombres_Repetidos", da 566
 
 #print(f"Top 10 nombres repetidos: \n{Nombres_Repetidos[Nombres_Repetidos['Frecuencia']>3]}")
-
-Mostrar_Datos_Dif(df_original)
-print(Nombres_Repetidos)
-print(Paises)
+print(df_original['Precio_Unitario'].isnull().sum())
+#Mostrar_Datos_Dif(df_original)
+#print(Nombres_Repetidos)
+#print(Paises)

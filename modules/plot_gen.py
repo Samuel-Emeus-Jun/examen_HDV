@@ -1,7 +1,7 @@
 ##AQUI VAMOS A GENERAR NUESTRAS GRÁFICAS
 import plotly.express as px
 import pandas as pd
-from data_processing import cargar_limpiar
+from modules.data_processing import cargar_limpiar
 
 def plot_satisfaction_vs_payment(df):
     fig = px.bar(df,

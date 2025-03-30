@@ -4,10 +4,13 @@ import pandas as pd
 def cargar_limpiar():
     df = pd.read_excel('data/datos_ventas_limpio.xlsx')
 
-    df['calificacion_cliente'] = pd.to_numeric(df['calificacion_cliente'], errors='coerce')
+    #df['calificacion_cliente'] = df['calificacion_cliente'].astype(str)
     #df['metodo_pago'] = df['metodo_pago'].astype('category')
+
     
     df = df.dropna(subset = ['calificacion_cliente' , 'metodo_pago'])
+    df['calificacion_cliente'] = df['calificacion_cliente'].astype(int)
+    df['calificacion_cliente'] = df['calificacion_cliente'].astype(str)
 
     return df
   

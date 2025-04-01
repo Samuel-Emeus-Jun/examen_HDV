@@ -1,24 +1,29 @@
 ##AQUI VAMOS A CARGAR EL ARCHIVO Y HACER LA LIMPIEZA GENERAL
 import pandas as pd
 
-def cargar_limpiar():
+def cargar():
     df = pd.read_excel('data/datos_ventas_limpio.xlsx')
+
+def limpiar(df):
+
+    nuevo_df = df.copy()
+    #df = pd.read_excel('data/datos_ventas_limpio.xlsx')
 
     #df['calificacion_cliente'] = df['calificacion_cliente'].astype(str)
     #df['metodo_pago'] = df['metodo_pago'].astype('category')
-
     
-    df = df.dropna(subset = ['calificacion_cliente' , 'metodo_pago'])
-    df['calificacion_cliente'] = df['calificacion_cliente'].astype(int)
-    df['calificacion_cliente'] = df['calificacion_cliente'].astype(str)
+    nuevo_df = nuevo_df.dropna(subset = ['calificacion_cliente' , 'metodo_pago'])
+    nuevo_df['calificacion_cliente'] = nuevo_df['calificacion_cliente'].astype(int)
+    nuevo_df['calificacion_cliente'] = nuevo_df['calificacion_cliente'].astype(str)
 
-    return df
+    return nuevo_df
   
     
 
 
 def main():
-    df = cargar_limpiar()
+    df = cargar()
+    df = limpiar(df)
     print(df.head())
 
 

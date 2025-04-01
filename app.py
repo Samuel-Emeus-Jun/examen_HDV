@@ -1,10 +1,21 @@
+##AQUÍ VAMOS A HACER NUESTRO DASHBOARD
+
 import dash
+import plotly.graph_objects as go
 from dash import dcc, html, Input, Output
-from modules.data_processing import cargar_limpiar
+from modules.data_processing import cargar, limpiar_satisfaccion_cliente
 from modules.plot_gen import plot_satisfaction_vs_payment
 
-# Cargar y limpiar los datos
-df = cargar_limpiar()
+# Cargar df
+df = cargar()
+
+#Limpieza de df por gráfica
+
+df = limpiar_satisfaccion_cliente(df)
+
+##CREO QUE SI VAMOS A TENER QUE UNIFICAR LA LIMPIEZA :(
+
+
 
 #Generar lista de paises
 paises_unicos = df['pais'].dropna().unique()
@@ -25,21 +36,41 @@ app.layout = html.Div(children=[
     ),
 
     html.Div(children=[
-        html.H3("Calificación del Cliente por Método de Pago"),
-        dcc.Graph(id='grafico_calificacion_pago',)
+        html.Div(children=[
+            dcc.Graph(id= 'grafico_1',),
+            dcc.Graph(id = 'grafico_2')
+        ], style={'display': 'flex', 'width' : '100%', 'flex-direction': 'row', 'justify-content': 'space-between'}),
+        html.Div(children=[
+            dcc.Graph(id = 'grafico_3'),
+            dcc.Graph(id = 'grafico_4')
+        ], style={'display': 'flex', 'width' : '100%', 'flex-direction': 'row', 'justify-content': 'space-between'}),
     ])
 ])
 
+##APLICACIÓN DE FILTROS EN LOS GRÁFICOS
+
+# Placeholder para los gráficos que no se están utilizando en este momento
+fig_placeholder = go.Figure()
+
 @app.callback(
-    Output('grafico_calificacion_pago', 'figure'),
+    [Output('grafico_1', 'figure'),
+     Output('grafico_2', 'figure'),
+     Output('grafico_3', 'figure'),
+     Output('grafico_4', 'figure')],
     Input('filtro paises', 'value')
 )
 
+
 def actualizar_grafico(pais_seleccionado):
     df_filtrado = df[df['pais'] == pais_seleccionado] if pais_seleccionado else df
-    return plot_satisfaction_vs_payment(df_filtrado)
+
+    fig_1 = fig_placeholder
+    fig_2 = fig_placeholder
+    fig_3 = fig_placeholder
+    fig_4 = plot_satisfaction_vs_payment(df_filtrado)
+
+    return fig_1, fig_2, fig_3, fig_4
 
 
-# Ejecutar la app solo si este archivo se ejecuta directamente
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,7 +1,7 @@
 ##AQUI VAMOS A GENERAR NUESTRAS GRÁFICAS
 import plotly.express as px
 import pandas as pd
-from modules.data_processing import cargar_limpiar 
+from modules.data_processing import cargar, limpiar_satisfaccion_cliente
 #from data_processing import cargar_limpiar ##Para pruebas locales
 
 def plot_satisfaction_vs_payment(df):
@@ -29,7 +29,8 @@ def plot_satisfaction_vs_payment(df):
 
 def main():
     
-    df = cargar_limpiar()
+    df = cargar()
+    df = limpiar_satisfaccion_cliente(df)
     fig = plot_satisfaction_vs_payment(df)
     fig.show()
 

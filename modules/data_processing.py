@@ -3,8 +3,9 @@ import pandas as pd
 
 def cargar():
     df = pd.read_excel('data/datos_ventas_limpio.xlsx')
+    return df
 
-def limpiar(df):
+def limpiar_satisfaccion_cliente(df):
 
     nuevo_df = df.copy()
     #df = pd.read_excel('data/datos_ventas_limpio.xlsx')
@@ -23,7 +24,7 @@ def limpiar(df):
 
 def main():
     df = cargar()
-    df = limpiar(df)
+    df = limpiar_satisfaccion_cliente(df)
     print(df.head())
 
 

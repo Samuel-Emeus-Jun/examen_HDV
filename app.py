@@ -3,15 +3,15 @@
 import dash
 import plotly.graph_objects as go
 from dash import dcc, html, Input, Output
-from modules.data_processing import cargar, limpiar_satisfaccion_cliente
+from modules.data_processing import cargar_limpiar
 from modules.plot_gen import plot_satisfaction_vs_payment
 
 # Cargar df
-df = cargar()
+df = cargar_limpiar()
 
 #Limpieza de df por gráfica
 
-df = limpiar_satisfaccion_cliente(df)
+#df = limpiar_satisfaccion_cliente(df)
 
 ##CREO QUE SI VAMOS A TENER QUE UNIFICAR LA LIMPIEZA :(
 

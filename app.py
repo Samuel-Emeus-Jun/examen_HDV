@@ -28,6 +28,13 @@ app.layout = html.Div(children=[
         clearable = True,
     ),
 
+    dcc.DatePickerRange(
+        id ='filtro_fechas',
+        start_date = df['fecha_compra'].min().date(),
+        end_date = df['fecha_compra'].max().date(),
+        display_format='DD/MM/YYYY',
+    ),
+
     html.Div(children=[
 
         ##CUADRANTE IZQUIERDO
@@ -76,20 +83,36 @@ fig_placeholder = go.Figure()
      Output('grafico_3', 'figure'),
      Output('grafico_4', 'figure'),
      Output('mapa', 'figure')],
-    Input('filtro paises', 'value')
+    [Input('filtro paises', 'value'),
+     Input('filtro_fechas', 'start_date'),
+     Input('filtro_fechas', 'end_date')]
 )
 
+def actulizar_graficos(pais, fecha_inicio, fecha_fin):
+    df_filtrado = df.copy()
+    if pais:
+        df_filtrado = df_filtrado[df_filtrado['pais'] == pais]
+    if fecha_inicio and fecha_fin:
+        df_filtrado = df_filtrado[(df_filtrado['fecha_compra'] >= fecha_inicio) & (df_filtrado['fecha_compra'] <= fecha_fin)]
+    
+    return(
+        grafica_tendencia_ventas(df_filtrado),
+        pie_status(df_filtrado),
+        plot_cantidad_vs_precio_heatmap(df_filtrado),
+        plot_satisfaction_vs_payment(df_filtrado),
+        plot_mapa_interactivo(df_filtrado)
+    )
 
-def actualizar_grafico(pais_seleccionado):
-    df_filtrado = df[df['pais'] == pais_seleccionado] if pais_seleccionado else df
+# def actualizar_grafico(pais_seleccionado):
+#     df_filtrado = df[df['pais'] == pais_seleccionado] if pais_seleccionado else df
 
-    fig_1 = grafica_tendencia_ventas(df_filtrado)
-    fig_2 = plot_sales_by_category(df_filtrado)
-    fig_3 = plot_cantidad_vs_precio_heatmap(df_filtrado)
-    fig_4 = plot_satisfaction_vs_payment(df_filtrado)
-    fig_5 = plot_mapa_interactivo(df_filtrado)
+#     fig_1 = grafica_tendencia_ventas(df_filtrado)
+#     fig_2 = pie_status(df_filtrado)#plot_sales_by_category(df_filtrado)
+#     fig_3 = plot_cantidad_vs_precio_heatmap(df_filtrado)
+#     fig_4 = plot_satisfaction_vs_payment(df_filtrado)
+#     fig_5 = plot_mapa_interactivo(df_filtrado)
 
-    return fig_1, fig_2, fig_3, fig_4, fig_5
+#     return fig_1, fig_2, fig_3, fig_4, fig_5
 
 
 if __name__ == "__main__":

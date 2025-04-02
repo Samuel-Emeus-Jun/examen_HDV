@@ -139,6 +139,7 @@ def pie_status(df):
                  names='estado_envio',
                  color='estado_envio',
                  title='Distribución de Estados de Envío',
+                 hole=0.7,
                  color_discrete_map={
                      'Entregado': 'springgreen',
                      'Enviado': 'deepskyblue',

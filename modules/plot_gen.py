@@ -2,8 +2,8 @@
 import plotly.express as px
 import pandas as pd
 import numpy as np
-from modules.data_processing import cargar_limpiar
-#from data_processing import cargar_limpiar ##Para pruebas locales
+#from modules.data_processing import cargar_limpiar
+from data_processing import cargar_limpiar ##Para pruebas locales
 
 
 ##NADIA
@@ -86,11 +86,11 @@ def plot_satisfaction_vs_payment(df):
                  title = 'Calificación del Cliente por Método de Pago',
                  range_x = [grouped_df['conteo'].min(), grouped_df['conteo'].max() + 5],
                  color_discrete_map = {  
-                    '1': 'red',
-                    '2': 'orange',
-                    '3': 'yellow',
-                    '4': 'green',
-                    '5': 'blue'
+                    '1': 'palevioletred',
+                    '2': 'tomato',
+                    '3': 'sandybrown',
+                    '4': 'lightgreen',
+                    '5': 'dodgerblue'
                  }
                  )
     
@@ -101,6 +101,30 @@ def plot_satisfaction_vs_payment(df):
                       font=dict(size=12),
                       title_font=dict(size=16)) 
     
+    return fig
+
+
+def pie_status(df):
+    """
+    Genera un gráfico de pastel para visualizar la distribución de estados de envío.
+    """
+
+    df_agrupado = df.groupby('estado_envio').size().reset_index(name='conteo')
+
+    fig = px.pie(df_agrupado, 
+                 values='conteo', 
+                 names='estado_envio',
+                 color='estado_envio',
+                 title='Distribución de Estados de Envío',
+                 color_discrete_map={
+                     'Entregado': 'springgreen',
+                     'Enviado': 'deepskyblue',
+                     'Cancelado': 'orangered',
+                     'Pendiente': 'plum',
+                 })
+
+    fig.update_traces(textinfo='percent+label')
+
     return fig
 
 
@@ -124,7 +148,9 @@ def plot_mapa_interactivo(df):
 def main():
     
     df = cargar_limpiar()
-    fig = plot_satisfaction_vs_payment(df)
+    # print(df['estado_envio'].unique())
+    # print(df['estado_envio'].value_counts())
+    fig = pie_status(df)
     fig.show()
 
 if __name__ == "__main__":

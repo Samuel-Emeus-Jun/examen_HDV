@@ -32,6 +32,7 @@ def cargar_limpiar():
 
     df['calificacion_cliente'] = df['calificacion_cliente'].astype(int)
     df['calificacion_cliente'] = df['calificacion_cliente'].astype(str)
+    df['estado_envio'] = df['estado_envio'].astype(str)
 
     return df
   
@@ -41,8 +42,7 @@ def cargar_limpiar():
 def main():
     #df = cargar()
     df = cargar_limpiar()
-    print(df[df['pais'] == 'Colombia']['total_compra'].sum())  # Imprimir los nombres de las columnas para verificar que se cargaron correctamente
-
+    print(df[df['pais'] == 'Colombia']['total_compra'].sum())  
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@ import dash
 import plotly.graph_objects as go
 from dash import dcc, html, Input, Output
 from modules.data_processing import cargar_limpiar
-from modules.plot_gen import plot_satisfaction_vs_payment, plot_cantidad_vs_precio_heatmap, grafica_tendencia_ventas, plot_mapa_interactivo
+from modules.plot_gen import plot_satisfaction_vs_payment, plot_cantidad_vs_precio_heatmap, grafica_tendencia_ventas, pie_status, plot_mapa_interactivo
 
 # Cargar df
 df = cargar_limpiar()
@@ -84,7 +84,7 @@ def actualizar_grafico(pais_seleccionado):
     df_filtrado = df[df['pais'] == pais_seleccionado] if pais_seleccionado else df
 
     fig_1 = grafica_tendencia_ventas(df_filtrado)
-    fig_2 = grafica_tendencia_ventas(df_filtrado)
+    fig_2 = pie_status(df_filtrado)
     fig_3 = plot_cantidad_vs_precio_heatmap(df_filtrado)
     fig_4 = plot_satisfaction_vs_payment(df_filtrado)
     fig_5 = plot_mapa_interactivo(df_filtrado)

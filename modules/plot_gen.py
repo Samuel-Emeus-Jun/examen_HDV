@@ -2,8 +2,8 @@
 import plotly.express as px
 import pandas as pd
 import numpy as np
-#from modules.data_processing import cargar_limpiar
-from data_processing import cargar_limpiar ##Para pruebas locales
+from modules.data_processing import cargar_limpiar
+#from data_processing import cargar_limpiar ##Para pruebas locales
 
 
 ##NADIA
@@ -85,6 +85,13 @@ def plot_satisfaction_vs_payment(df):
                  barmode = 'group',
                  title = 'Calificación del Cliente por Método de Pago',
                  range_x = [grouped_df['conteo'].min(), grouped_df['conteo'].max() + 5],
+                 color_discrete_map = {  
+                    '1': 'red',
+                    '2': 'orange',
+                    '3': 'yellow',
+                    '4': 'green',
+                    '5': 'blue'
+                 }
                  )
     
     
@@ -117,7 +124,7 @@ def plot_mapa_interactivo(df):
 def main():
     
     df = cargar_limpiar()
-    fig = plot_mapa_interactivo(df)
+    fig = plot_satisfaction_vs_payment(df)
     fig.show()
 
 if __name__ == "__main__":

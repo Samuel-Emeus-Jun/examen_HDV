@@ -2,8 +2,8 @@
 import plotly.express as px
 import pandas as pd
 import numpy as np
-#from modules.data_processing import cargar_limpiar
-from data_processing import cargar_limpiar ##Para pruebas locales
+from modules.data_processing import cargar_limpiar
+#from data_processing import cargar_limpiar ##Para pruebas locales
 
 
 ##NADIA
@@ -70,6 +70,29 @@ def grafica_tendencia_ventas(df):
 
 
 ##ROB
+
+def plot_sales_by_category(df):
+    grouped_df = df.groupby('categoria_producto')['total_compra'].sum().reset_index()
+
+    fig=px.pie(grouped_df,
+                values='total_compra',
+                names='categoria_producto',
+                title='Ventas Totales por Categoría de Producto',
+                #El orden de las leyendas no es el mismo, pero el color de cada categoría sí
+                color='categoria_producto',
+                #Te dejo la decisión de que sea pastel o dona
+                hole=0.7)
+    
+    fig.update_layout(legend_title_text='Categoría de Producto',
+                      #No sé qué tamaño de letra usaste
+                      font=dict(size=12),
+                      title_font=dict(size=16))
+    
+    #Podemos prescindir de esto también, pero lo dejo por si acaso
+    fig.update_traces(textinfo='percent+label')
+
+    #fig.show()
+    return fig
 
 
 ##EM
